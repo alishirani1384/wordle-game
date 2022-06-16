@@ -97,6 +97,15 @@ const useWordle = (solution) => {
       }
     }
   };
-  return { turn, currentGuess, guesses, isCorrect, handleKeyup,usedKeys };
+  return {
+    setCurrentGuess,
+    turn,
+    currentGuess,
+    guesses,
+    isCorrect,
+    handleKeyup,
+    usedKeys,
+    addNewGuess,
+  };
 };
 export default useWordle;

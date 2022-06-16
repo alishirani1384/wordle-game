@@ -5,13 +5,23 @@ import Keypad from './Keypad';
 import Modal from './Modal'
 
 const Wordle = ({ solution }) => {
-  const { currentGuess, handleKeyup, guesses, isCorrect, turn, usedKeys } = useWordle(solution);
+  const {
+    currentGuess,
+    handleKeyup,
+    guesses,
+    isCorrect,
+    turn,
+    usedKeys,
+    setCurrentGuess,
+  } = useWordle(solution);
   const [showModal, setShowModal] = useState(false)
+  const [valued, setValue] = useState('')
 
-  
 
   useEffect(() => {
     window.addEventListener("keyup", handleKeyup);
+    
+
 
     if (isCorrect) {
       setTimeout(() => setShowModal(true), 1500);
@@ -28,9 +38,16 @@ const Wordle = ({ solution }) => {
 
   return (
     <>
+      <input type="text" onSubmit={(e)=>setValue('')} value={valued} className="input" maxLength="5" autoFocus />
       <Grid currentGuess={currentGuess} guesses={guesses} turn={turn} />
-      <Keypad usedKeys={usedKeys} />
-      {showModal && <Modal isCorrect={isCorrect} turn={turn} solution={solution} />}
+      <Keypad
+        handleKeyup={handleKeyup}
+        usedKeys={usedKeys}
+        setCurrentGuess={setCurrentGuess}
+      />
+      {showModal && (
+        <Modal isCorrect={isCorrect} turn={turn} solution={solution} />
+      )}
     </>
   );
 };
