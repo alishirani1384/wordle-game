@@ -8,9 +8,9 @@ function App() {
     navigator.virtualKeyboard.overlaysContent = true;
   };
   useEffect(() => {
-    fetch("http://localhost:3001/solutions")
+    fetch("https://json.extendsclass.com/bin/368030f5020e")
       .then((res) => res.json())
-      .then((json) => {
+      .then(({ solutions: json }) => {
         const randomSolution = json[Math.floor(Math.random() * json.length)];
         setSolution(randomSolution.word);
       });
