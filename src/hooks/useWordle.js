@@ -70,7 +70,7 @@ const useWordle = (solution) => {
   };
 
   const handleKeyup = ({ key }) => {
-    if (key === "Enter") {
+    if (key === "Enter"||key==="Go") {
       if (turn > 5) {
         console.log("you used all your guesses");
         return;
@@ -106,6 +106,7 @@ const useWordle = (solution) => {
     handleKeyup,
     usedKeys,
     addNewGuess,
+    formatGuess,
   };
 };
 export default useWordle;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const Keypad = ({ usedKeys, setCurrentGuess, handleKeyup }) => {
+const Keypad = ({ usedKeys, setCurrentGuess, currentGuess }) => {
   const [letters, setLetters] = useState(null);
 
   useEffect(() => {
@@ -10,6 +10,7 @@ const Keypad = ({ usedKeys, setCurrentGuess, handleKeyup }) => {
         setLetters(data);
       });
   }, [setLetters]);
+  const Enter = "Go";
 
   return (
     <div className="keypad">
@@ -18,6 +19,11 @@ const Keypad = ({ usedKeys, setCurrentGuess, handleKeyup }) => {
           const color = usedKeys[l.key];
           return (
             <div
+              onClick={
+                currentGuess.length < 5
+                  ? () => setCurrentGuess((pre) => pre + l.key)
+                  : () => false
+              }
               key={l.key}
               className={color}
             >
@@ -25,6 +31,7 @@ const Keypad = ({ usedKeys, setCurrentGuess, handleKeyup }) => {
             </div>
           );
         })}
+      <button onClick={() => window.key=Enter}>Enter</button>
     </div>
   );
 };

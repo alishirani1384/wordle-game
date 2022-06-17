@@ -15,35 +15,34 @@ const Wordle = ({ solution }) => {
     setCurrentGuess,
   } = useWordle(solution);
   const [showModal, setShowModal] = useState(false)
-  const [valued, setValue] = useState('')
+  const [valued, setValue] = useState("")
 
 
   useEffect(() => {
-    window.addEventListener("keyup", handleKeyup);
-    
-
+    // window.addEventListener("keyup", handleKeyup);
+    window.addEventListener('keypress', handleKeyup);
 
     if (isCorrect) {
       setTimeout(() => setShowModal(true), 1500);
-      window.removeEventListener("keyup", handleKeyup);
+      window.removeEventListener("keypress", handleKeyup);
     }
 
     if (turn > 5) {
       setTimeout(() => setShowModal(true), 1500);
-      window.removeEventListener("keyup", handleKeyup);
+      window.removeEventListener("keypress", handleKeyup);
     }
 
-    return () => window.removeEventListener("keyup", handleKeyup);
+    return () => window.removeEventListener("keypress", handleKeyup);
   }, [handleKeyup, isCorrect, turn]);
 
   return (
     <>
-      <input type="text" onSubmit={(e)=>setValue('')} value={valued} className="input" maxLength="5" autoFocus />
+      <input type="text" maxLength='5' className="input" defaultValue='write here'/>
       <Grid currentGuess={currentGuess} guesses={guesses} turn={turn} />
       <Keypad
-        handleKeyup={handleKeyup}
         usedKeys={usedKeys}
         setCurrentGuess={setCurrentGuess}
+        currentGuess={currentGuess}
       />
       {showModal && (
         <Modal isCorrect={isCorrect} turn={turn} solution={solution} />
