@@ -15,7 +15,6 @@ const Wordle = ({ solution }) => {
     setCurrentGuess,
   } = useWordle(solution);
   const [showModal, setShowModal] = useState(false)
-  const [valued, setValue] = useState("")
 
 
   useEffect(() => {

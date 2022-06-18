@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import useWordle from "../hooks/useWordle";
 
 const Keypad = ({ usedKeys, setCurrentGuess, currentGuess }) => {
   const [letters, setLetters] = useState(null);
+  const {handleKeyup}=useWordle()
 
   useEffect(() => {
     fetch("https://json.extendsclass.com/bin/368030f5020e")
@@ -9,13 +11,13 @@ const Keypad = ({ usedKeys, setCurrentGuess, currentGuess }) => {
       .then(({ letters: data }) => {
         setLetters(data);
       });
+    navigator.virtualKeyboard.overlaysContent = true;
   }, [setLetters]);
-  const Enter = "Go";
-
+  const Enter = "Enter";
   return (
     <div className="keypad">
-      {letters &&
-        letters.map((l) => {
+      {
+        letters?.map((l) => {
           const color = usedKeys[l.key];
           return (
             <div
@@ -31,7 +33,7 @@ const Keypad = ({ usedKeys, setCurrentGuess, currentGuess }) => {
             </div>
           );
         })}
-      <button onClick={() => window.key=Enter}>Enter</button>
+      <button onClick={() => handleKeyup({key:Enter})}>Enter</button>
     </div>
   );
 };
